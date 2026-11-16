@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Alleycat
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A single-page React marketplace hub for art, stickers and clothes, with a pastel MySpace scrapbook design. Purchases happen on the linked marketplaces.
 
-## Available Scripts
+## Local development
 
-In the project directory, you can run:
+- `npm.cmd start` starts the development server at http://localhost:3000.
+- `npm.cmd test -- --watchAll=false --runInBand` runs the shopping-flow tests.
+- `npm.cmd run build` creates the production site in `build/`.
 
-### `npm start`
+Use `npm` in shells without PowerShell script restrictions. Dependencies are installed with `npm.cmd ci`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Shop destinations
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Set the owner's real HTTPS profile URLs in `src/shopConfig.js`. Empty, malformed, non-HTTPS and known placeholder destinations display a non-clickable "coming soon" label. Configured links open a new tab and announce that behavior to screen readers.
 
-### `npm test`
+The Redbubble and Vinted URLs have not yet been supplied. Add those before launch; no fake profiles or contact details are shipped. Additional marketplaces can be added when real destinations are available.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Artwork and clothing
 
-### `npm run build`
+The supplied artwork is served from `public/assets/`. The same designs appear as informative previews and decorative paper collages; original colors and artwork backgrounds are preserved. The clothing section uses a simple hanger illustration until genuine garment photos are available.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The layout adapts to narrow screens and supports keyboard navigation, a skip link, and reduced motion. Confirm real marketplace destinations and inspect desktop/mobile layouts before publishing.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Netlify deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Production: https://alleycat-shop.netlify.app
 
-### `npm run eject`
+Netlify project: https://app.netlify.com/projects/alleycat-shop (Elis projects).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The site uses direct uploads. Git pushes do not automatically deploy it. The local project is linked through the ignored `.netlify/state.json`; `netlify.toml` records the build command and publish directory.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To update the site from this linked checkout, sign in to the same Netlify account if needed, then run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```powershell
+npm.cmd test -- --watchAll=false --runInBand
+npm.cmd run build
+npx.cmd --yes netlify-cli deploy --dir build --no-build --prod
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Only run the upload after the tests and build succeed. From a new checkout, first run `npx.cmd --yes netlify-cli link --id 80c803c3-1a62-4634-9630-ac4dfabd2ead`.
